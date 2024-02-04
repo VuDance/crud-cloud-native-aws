@@ -3,7 +3,7 @@ import { Authenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 import { Amplify, API } from "aws-amplify";
 import { fetchUserAttributes, fetchAuthSession } from "aws-amplify/auth";
-import { get } from "aws-amplify/api";
+import { get, post } from "aws-amplify/api";
 
 Amplify.configure({
   // aws_project_region: "ap-southeast-1",
@@ -42,12 +42,15 @@ export default function Home() {
       // console.log("Access Token:", session.tokens.accessToken);
       // console.log("ID Token:", session.tokens.idToken);
       // console.log(session);
-      const restOperation = get({
+      const restOperation = post({
         apiName: "ApiSls",
         path: "/hello",
         options: {
           headers: {
             Authorization: idToken,
+          },
+          body: {
+            username: "dang",
           },
         },
       });
